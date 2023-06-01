@@ -1,56 +1,61 @@
-use reqwest::blocking::{Client, Response};
-use reqwest::Error;
-use serde_json;
+// JSON API Handler 
 
-pub fn get_json(url: &str, header_key:&str, header_value:&str,) -> Result<serde_json::Value, reqwest::Error>{
-    let cli = Client::new();
-    let res: serde_json::Value = cli
-        .get(url)
-        .header(header_key, header_value)
-        .send()?
-        .json()?;
-    
-    Ok(res)
-}
+pub mod json_api {
+    use reqwest::blocking::{Client, Response};
+    use reqwest::Error;
+    use serde_json;
 
-pub fn post_json(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
-    let cli = Client::new();
-    let res = cli
-        .post(url)
-        .header(header_key, header_value)
-        .body(body)
-        .send()?;
-    
-    Ok(res)
-}
+    pub fn get(url: &str, header_key:&str, header_value:&str,) -> Result<serde_json::Value, reqwest::Error>{
+        let cli = Client::new();
+        let res: serde_json::Value = cli
+            .get(url)
+            .header(header_key, header_value)
+            .send()?
+            .json()?;
+        
+        Ok(res)
+    }
+
+    pub fn post(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
+        let cli = Client::new();
+        let res = cli
+            .post(url)
+            .header(header_key, header_value)
+            .body(body)
+            .send()?;
+        
+        Ok(res)
+    }
 
 
-pub fn put_json(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
-    let cli = Client::new();
-    let res = cli
-        .put(url)
-        .header(header_key, header_value)
-        .body(body)
-        .send()?;
-    
-    Ok(res)
-}
+    pub fn put(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
+        let cli = Client::new();
+        let res = cli
+            .put(url)
+            .header(header_key, header_value)
+            .body(body)
+            .send()?;
+        
+        Ok(res)
+    }
 
-pub fn delete_json(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
-    let cli = Client::new();
-    let res = cli
-        .delete(url)
-        .header(header_key, header_value)
-        .body(body)
-        .send()?;
-    
-    Ok(res)
+    pub fn delete(url: &str, header_key:&str, header_value:&str, body: String) -> Result<Response, Error>{
+        let cli = Client::new();
+        let res = cli
+            .delete(url)
+            .header(header_key, header_value)
+            .body(body)
+            .send()?;
+        
+        Ok(res)
+    }
 }
 
 // Tests
 #[cfg(test)]
 mod test_api {
     use super::*;
+    use serde_json;
 
     #[test]
     fn test_get() {
@@ -62,7 +67,7 @@ mod test_api {
         let url = format!("{}{}", base_url, product_endpoint);
     
         // Get reqest
-        let resp = get_json(&url, header_key, header_value);
+        let resp = json_api::get(&url, header_key, header_value);
         
         assert_eq!(resp.is_ok(), true)
     }
@@ -79,7 +84,7 @@ mod test_api {
     
         // Post request
         let body:serde_json::Result<serde_json::Value> = serde_json::from_str("{\"title\": \"Iphone Galaxy + 1\"}");
-        let resp = post_json(&url, header_key, header_value, body.expect("JSON").to_string());
+        let resp = json_api::post(&url, header_key, header_value, body.expect("JSON").to_string());
     
         assert_eq!(resp.is_ok(), true)
     
@@ -97,7 +102,7 @@ mod test_api {
     
         // Put request
         let body:serde_json::Result<serde_json::Value>  = serde_json::from_str("{\"title\": \"iPhone Galaxy +1\"}");
-        let resp = put_json(&url, header_key, header_value, body.expect("JSON").to_string());
+        let resp = json_api::put(&url, header_key, header_value, body.expect("JSON").to_string());
     
         assert_eq!(resp.is_ok(), true)
     }
@@ -114,7 +119,7 @@ mod test_api {
     
         // Delete request
         let body:serde_json::Result<serde_json::Value>  = serde_json::from_str("{\"title\": \"iPhone Galaxy +1\"}");
-        let resp = delete_json(&url, header_key, header_value, body.expect("JSON").to_string());
+        let resp = json_api::delete(&url, header_key, header_value, body.expect("JSON").to_string());
     
         assert_eq!(resp.is_ok(), true)
     
