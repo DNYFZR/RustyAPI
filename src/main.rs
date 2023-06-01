@@ -13,7 +13,7 @@ fn main() {
     let url = format!("{}{}", base_url, product_endpoint);
 
     // Get reqest
-    let resp = api::get_json(&url);
+    let resp = api::get_json(&url, header_key, header_value);
 
     println!("Get Request");
     println!("{:?}", resp);
