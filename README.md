@@ -2,6 +2,10 @@
 
 <br>
 
+[![CI_Rust](https://github.com/DNYFZR/RustDataEng/actions/workflows/ci_rust.yml/badge.svg)](https://github.com/DNYFZR/RustDataEng/actions/workflows/ci_rust.yml)
+
+<br>
+
 <h3 align="center"><b>🎡 The Old Dirt Road 🎡</b></h1>
 
 **Up Next...**
