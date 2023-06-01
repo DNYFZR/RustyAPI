@@ -53,7 +53,7 @@ pub mod json_api {
 
 // Tests
 #[cfg(test)]
-mod test_api {
+mod test_json_api {
     use super::*;
     use serde_json;
 
