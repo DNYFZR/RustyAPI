@@ -26,6 +26,8 @@
 
 - Set up Rust CI pipeline with GitHub Actions ([ci_rust.yml](.github/workflows/ci_rust.yml))
 
+- Configured code into a public module scope
+
 <br>
 
 ---
